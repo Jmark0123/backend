@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -83,5 +84,18 @@ class UserController extends Controller
         $User = User::findOrFail($id);
         $User -> delete();
         return $User;
+    }
+    /**
+     * Update image the specified resource in storage.
+     */
+    public function image(UserRequest $request, string $id)
+    {
+        $user = User::findOrFAil($id);
+        if(!is_null($user->image)){
+            Storage:: disk('public')->delete($user->image);
+        }
+        $user -> Image = $request ->file('image')-> storePublicly('image', 'public'); 
+        $user->save();
+        return $user;
     }
 }

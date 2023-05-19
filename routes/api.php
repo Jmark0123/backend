@@ -35,7 +35,7 @@ Route::controller(UserController::class)->group(function () {
         route:: put('/user/{id}',         'update')->name('user.update');
         route:: put('/user/email/{id}',   'email')->name('user.email');
         route:: put('/user/password/{id}','password')->name('user.password');
+        route:: put('/user/image/{id}','image')->name('user.image');
         route:: delete('/user/{id}',      'destroy');
     });
-
 });
